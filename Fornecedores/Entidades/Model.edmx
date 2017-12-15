@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="EstadoSet" EntityType="Model.Store.EstadoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FornecedorSet" EntityType="Model.Store.FornecedorSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RegiaoSet" EntityType="Model.Store.RegiaoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FornecedorRegiaoSet" EntityType="Model.Store.FornecedorRegiaoSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="EstadoRegiao" Association="Model.Store.EstadoRegiao">
+      <End Role="Estado" EntitySet="EstadoSet" />
+      <End Role="Regiao" EntitySet="RegiaoSet" />
+    </AssociationSet>
+    <AssociationSet Name="FornecedorFornecedorRegiao" Association="Model.Store.FornecedorFornecedorRegiao">
+      <End Role="Fornecedor" EntitySet="FornecedorSet" />
+      <End Role="FornecedorRegiao" EntitySet="FornecedorRegiaoSet" />
+    </AssociationSet>
+    <AssociationSet Name="RegiaoFornecedorRegiao" Association="Model.Store.RegiaoFornecedorRegiao">
+      <End Role="Regiao" EntitySet="RegiaoSet" />
+      <End Role="FornecedorRegiao" EntitySet="FornecedorRegiaoSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="EstadoSet">
+    <Key>
+      <PropertyRef Name="IdEstado" />
+    </Key>
+    <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descricao" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="FornecedorSet">
+    <Key>
+      <PropertyRef Name="IdFornecedor" />
+    </Key>
+    <Property Name="IdFornecedor" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CNPJ" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Nome" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="RegiaoSet">
+    <Key>
+      <PropertyRef Name="IdRegiao" />
+    </Key>
+    <Property Name="IdRegiao" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descricao" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Ativo" Type="tinyint" Nullable="false" />
+    <Property Name="IdEstado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FornecedorRegiaoSet">
+    <Key>
+      <PropertyRef Name="IdFornecedorRegiao" />
+    </Key>
+    <Property Name="IdFornecedorRegiao" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdFornecedor" Type="bigint" Nullable="false" />
+    <Property Name="IdRegiao" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="EstadoRegiao">
+    <End Role="Estado" Type="Model.Store.EstadoSet" Multiplicity="1" />
+    <End Role="Regiao" Type="Model.Store.RegiaoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Regiao">
+        <PropertyRef Name="IdEstado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FornecedorFornecedorRegiao">
+    <End Role="Fornecedor" Type="Model.Store.FornecedorSet" Multiplicity="1" />
+    <End Role="FornecedorRegiao" Type="Model.Store.FornecedorRegiaoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fornecedor">
+        <PropertyRef Name="IdFornecedor" />
+      </Principal>
+      <Dependent Role="FornecedorRegiao">
+        <PropertyRef Name="IdFornecedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RegiaoFornecedorRegiao">
+    <End Role="Regiao" Type="Model.Store.RegiaoSet" Multiplicity="1" />
+    <End Role="FornecedorRegiao" Type="Model.Store.FornecedorRegiaoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Regiao">
+        <PropertyRef Name="IdRegiao" />
+      </Principal>
+      <Dependent Role="FornecedorRegiao">
+        <PropertyRef Name="IdRegiao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EstadoSet" EntityType="Model.Estado" />
+          <EntitySet Name="FornecedorSet" EntityType="Model.Fornecedor" />
+          <EntitySet Name="RegiaoSet" EntityType="Model.Regiao" />
+          <EntitySet Name="FornecedorRegiaoSet" EntityType="Model.FornecedorRegiao" />
+          <AssociationSet Name="EstadoRegiao" Association="Model.EstadoRegiao">
+            <End Role="Estado" EntitySet="EstadoSet" />
+            <End Role="Regiao" EntitySet="RegiaoSet" />
+          </AssociationSet>
+          <AssociationSet Name="FornecedorFornecedorRegiao" Association="Model.FornecedorFornecedorRegiao">
+            <End Role="Fornecedor" EntitySet="FornecedorSet" />
+            <End Role="FornecedorRegiao" EntitySet="FornecedorRegiaoSet" />
+          </AssociationSet>
+          <AssociationSet Name="RegiaoFornecedorRegiao" Association="Model.RegiaoFornecedorRegiao">
+            <End Role="Regiao" EntitySet="RegiaoSet" />
+            <End Role="FornecedorRegiao" EntitySet="FornecedorRegiaoSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Fornecedor">
+          <Key>
+            <PropertyRef Name="IdFornecedor" />
+          </Key>
+          <Property Name="IdFornecedor" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CNPJ" Type="String" Nullable="false" MaxLength="20" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Regiao">
+          <Key>
+            <PropertyRef Name="IdRegiao" />
+          </Key>
+          <Property Name="IdRegiao" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Ativo" Type="Byte" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EstadoRegiao" Relationship="Model.EstadoRegiao" FromRole="Regiao" ToRole="Estado" />
+        </EntityType>
+        <EntityType Name="FornecedorRegiao">
+          <Key>
+            <PropertyRef Name="IdFornecedorRegiao" />
+          </Key>
+          <Property Name="IdFornecedorRegiao" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdFornecedor" Type="Int64" Nullable="false" />
+          <Property Name="IdRegiao" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Fornecedor" Relationship="Model.FornecedorFornecedorRegiao" FromRole="FornecedorRegiao" ToRole="Fornecedor" />
+          <NavigationProperty Name="Regiao" Relationship="Model.RegiaoFornecedorRegiao" FromRole="FornecedorRegiao" ToRole="Regiao" />
+        </EntityType>
+        <Association Name="EstadoRegiao">
+          <End Type="Model.Estado" Role="Estado" Multiplicity="1" />
+          <End Type="Model.Regiao" Role="Regiao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Regiao">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FornecedorFornecedorRegiao">
+          <End Type="Model.Fornecedor" Role="Fornecedor" Multiplicity="1" />
+          <End Type="Model.FornecedorRegiao" Role="FornecedorRegiao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fornecedor">
+              <PropertyRef Name="IdFornecedor" />
+            </Principal>
+            <Dependent Role="FornecedorRegiao">
+              <PropertyRef Name="IdFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RegiaoFornecedorRegiao">
+          <End Type="Model.Regiao" Role="Regiao" Multiplicity="1" />
+          <End Type="Model.FornecedorRegiao" Role="FornecedorRegiao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regiao">
+              <PropertyRef Name="IdRegiao" />
+            </Principal>
+            <Dependent Role="FornecedorRegiao">
+              <PropertyRef Name="IdRegiao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="EstadoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Estado)">
+        <MappingFragment StoreEntitySet="EstadoSet">
+          <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FornecedorSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Fornecedor)">
+        <MappingFragment StoreEntitySet="FornecedorSet">
+          <ScalarProperty Name="IdFornecedor" ColumnName="IdFornecedor" />
+          <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RegiaoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Regiao)">
+        <MappingFragment StoreEntitySet="RegiaoSet">
+          <ScalarProperty Name="IdRegiao" ColumnName="IdRegiao" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+          <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FornecedorRegiaoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.FornecedorRegiao)">
+        <MappingFragment StoreEntitySet="FornecedorRegiaoSet">
+          <ScalarProperty Name="IdFornecedorRegiao" ColumnName="IdFornecedorRegiao" />
+          <ScalarProperty Name="IdFornecedor" ColumnName="IdFornecedor" />
+          <ScalarProperty Name="IdRegiao" ColumnName="IdRegiao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

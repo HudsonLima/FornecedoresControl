@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0263c2e7efc34ca7bc7ab3badd56affa" Name="Diagram1" ZoomLevel="109" >
+        <EntityTypeShape EntityType="Model.Estado" Width="1.5" PointX="3.75" PointY="2.875" />
+        <EntityTypeShape EntityType="Model.Fornecedor" Width="1.5" PointX="1.5" PointY="2.875" />
+        <EntityTypeShape EntityType="Model.Regiao" Width="1.5" PointX="3.75" PointY="5.375" />
+        <EntityTypeShape EntityType="Model.FornecedorRegiao" Width="1.5" PointX="0.875" PointY="5.375" />
+        <AssociationConnector Association="Model.EstadoRegiao" />
+        <AssociationConnector Association="Model.FornecedorFornecedorRegiao" />
+        <AssociationConnector Association="Model.RegiaoFornecedorRegiao" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

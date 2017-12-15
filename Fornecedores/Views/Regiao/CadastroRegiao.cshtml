@@ -1,0 +1,99 @@
+﻿@model Fornecedores.Models.IndexRegiao
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> 
+    
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#SubmitProject").click(function () {
+                    if ($("#Validatetextbox").val() == "") {
+                        alert("Informe um valor para continuar");
+                    }
+                });
+    });
+    </script>  
+    
+</head>
+<body>
+    <div class="container">
+        <div class="divBack">
+            <strong>Cadastro de Regiões</strong>
+        </div>
+        @using (Html.BeginForm("Adiciona", "Regiao", FormMethod.Post))
+        {
+            <div class="form">
+                <div>
+                    <span id="estado">@Html.LabelFor(m => m.IdEstado, "Estado")</span><span class="obrigatorio">*</span>
+                    <div class="select">
+                        @Html.DropDownListFor(m => m.IdEstado, new SelectList(Model.Estados, "IdEstado", "Descricao"), "Selecione")
+                    </div>
+                </div>
+                <div class="espacamento-vert">
+                    <span id="descricaoRegiao">@Html.LabelFor(m => m.DescricaoRegiao, "Regiao:")</span><span class="obrigatorio">*</span>                           
+
+                    <div class="input">
+                        @Html.TextBoxFor(m => m.DescricaoRegiao, new { @class = "form-control", @id = "Validatetextbox" })
+                    </div>
+                </div>
+                <div class="espacamento-vert">
+                  
+                    <input type="submit" class = "btn btn-primary" valor="Inserir" id="SubmitProject" />
+                    
+                    <p id="error"></p>
+                </div>
+                <h3> *Valores repetidos não serão adicionados </h3>
+            </div>
+        }
+
+
+        <div class="grid">
+            <table>
+                <thead>
+                    <tr>
+                        <th>UF</th>
+                        <th>Região</th>
+                        <th>Situação</th>
+                        <th colspan="2">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var regiaoEstado in Model.RegioesEstado)
+                    {
+                        <tr>
+                            <td>@regiaoEstado.DescricaoEstado</td>
+                            <td>@regiaoEstado.DescricaoRegiao</td>
+
+                            @if (regiaoEstado.Ativo == 1)
+                            {
+                                <td>Ativo</td>
+                            }
+                            else
+                            {
+                                <td><p style="color:red;">Inativo</p></td>
+                            }
+
+                            <td>
+                                @Html.ActionLink("Editar", "Editar", new { IdRegiao = regiaoEstado.IdRegiao }) |
+
+                                @if (regiaoEstado.Ativo == 1)
+                                {
+                                    @Html.ActionLink("Inativar", "Inativar", new { IdRegiao = regiaoEstado.IdRegiao })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Ativar", "Ativar", new { IdRegiao = regiaoEstado.IdRegiao })
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>

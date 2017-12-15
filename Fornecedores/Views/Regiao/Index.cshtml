@@ -1,0 +1,81 @@
+﻿@model Fornecedores.Models.IndexRegiao
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="divBack">
+            <strong>Cadastro de Regiões do Fornecedor</strong>
+        </div>
+
+        @using (Html.BeginForm("Index", "Regiao", FormMethod.Get))
+        {
+            @Html.LabelFor(m => m.IdFornecedor, "Fornecedor")
+            @Html.DropDownListFor(m => m.IdFornecedor, new SelectList(Model.Fornecedores, "IdFornecedor", "Nome"), "Selecione")
+
+            <input type="submit" value="Buscar" />
+        }
+
+        
+        <div class="grid">
+            <table>
+
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" /></th>
+                        <th>UF</th>
+                        <th>Regiao</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var regiaoEstado in Model.RegioesEstado)
+                    {
+
+                        if (regiaoEstado.Ativo == 1)
+                        {
+                            <tr>
+                                <td>
+                                    <input @(Convert.ToBoolean(regiaoEstado.relacionadoComFornecedor) == true ? "checked='checked'" : string.Empty) type="checkbox" />
+                                </td>
+                                <td>@regiaoEstado.DescricaoEstado</td>
+                                <td>@regiaoEstado.DescricaoRegiao</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr bgcolor="red">
+                                <td>
+                                    <input @(Convert.ToBoolean(regiaoEstado.relacionadoComFornecedor) == true ? "checked='checked'" : string.Empty) type="checkbox" />
+                                </td>
+                                <td>@regiaoEstado.DescricaoEstado</td>
+                                <td>@regiaoEstado.DescricaoRegiao</td>
+                            </tr>
+
+                        }
+
+
+
+                    }
+
+                </tbody>
+
+
+            </table>
+        </div>
+        <div class="espacamento-vert">
+            <input type="submit" value="Gravar" />
+        </div>
+
+
+
+    </div>
+</body>
+</html>
